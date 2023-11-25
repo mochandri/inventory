@@ -32,6 +32,7 @@
                                 <th>Cabang</th>
                                 <th>Lokasi</th>
                                 <th>Status</th>
+                                <th>Aktif</th>
                                 <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang') : ?>
                                 <th width="1%">Aksi</th>
                                 <?php endif; ?>
@@ -49,7 +50,10 @@
                                 <td><?= $b->nama?></td>
                                 <td onclick="detail('<?= $b->id_barang ?>')"><?= $b->lokasi ?></td>
                                 <td><?= $b->status?></td>
-               
+                                <td><a href="<?= base_url() ?>barang/ubah/<?= $b->id_barang ?>"
+                                            class="btn btn-circle btn-success btn-sm">
+                                            <i class="fas fa-pen"></i>
+                                        </a></td>
  
                                 <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang') : ?>
                                 <td>

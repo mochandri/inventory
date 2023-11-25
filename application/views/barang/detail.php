@@ -39,6 +39,9 @@
                         <div class="col-lg-3">
                             <img width="100%" style="border-radius: 10px;" src="<?= base_url() ?>assets/upload/barang/<?= $d->foto ?>" alt="">
                         </div>
+                        <div class="col-lg-3">
+                        <img width="100%" style="border-radius: 10px;" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=<?= base_url()?><?= $d->id_barang?>" alt="">
+                        </div>
 
                         <br>
 

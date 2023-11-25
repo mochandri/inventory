@@ -38,16 +38,15 @@ class barang_model extends ci_model{
     }
 
     public function detail_join($where)
-    {
-      $this->db->select('*');
-      $this->db->from('barang as b');
-      $this->db->where('b.id_barang', $where);
-      $this->db->join('cabang as c', 'c.id_cabang = b.id_cabang');
- 
-
-      $this->db->order_by('b.id_barang','DESC');
-      return $query = $this->db->get();
-    }
+    
+      {
+        $this->db->select('*');
+        $this->db->from('barang as b');
+        $this->db->join('cabang as c', 'c.id_cabang = b.id_cabang');
+        $this->db->where('b.id_barang', $where);
+        $this->db->order_by('b.id_barang', 'DESC');
+        return $query = $this->db->get();
+      }
 
     public function dataJoinLike($tahun)
     {
@@ -147,6 +146,10 @@ class barang_model extends ci_model{
     $statusAktif = "Aktif";
 
     return $statusAktif;
+  }
+
+  public function generate(){
+    
   }
 
 

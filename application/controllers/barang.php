@@ -56,15 +56,12 @@ class Barang extends CI_Controller {
 
         //menampilkan data berdasarkan id
 		$where = array('id_barang'=>$id);
-        $data['data'] = $this->barang_model->detail_data($where, 'barang')->result();
+        $data['data'] = $this->barang_model->detail_join($id)->result();
         
         //data untuk select
-		$data['jenis'] = $this->jenis_model->data()->result();
-        $data['satuan'] = $this->satuan_model->data()->result();
 
-        //jml
-		$data['jmlJenis'] = $this->satuan_model->data()->num_rows();
-		$data['jmlSatuan'] = $this->satuan_model->data()->num_rows();
+
+ 
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('barang/form_ubah');
@@ -77,6 +74,8 @@ class Barang extends CI_Controller {
 
         //menampilkan data berdasarkan id
         $data['data'] = $this->barang_model->detail_join($id, 'barang')->result();
+		$data ['urlview'] = 'http://localhost/it_inventory/barang/detail/';
+		$data['qr'] = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='; 
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('barang/detail');
@@ -155,6 +154,80 @@ class Barang extends CI_Controller {
         
 		$kode =    $this->input->post('idbarang');
 		$barang =  $this->input->post('barang');
+		$tanggal = $this->input->post('tanggal');
+		$cabang = $this->input->post('cabang');
+		$lokasi = $this->input->post('lokasi');
+		$status = 'Aktif';
+
+        
+        $flama = $this->input->post('fotoLama');
+
+        if ($namaFile == '') {
+            $ganti = $flama;
+        }else{
+          if (! $this->upload->do_upload('photo')) {
+            $error = $this->upload->display_errors();
+            redirect('barang/ubah/'.$kode);
+          }
+          else{
+  
+            $data = array('photo' => $this->upload->data());
+            $nama_file= $data['photo']['file_name'];
+            $ganti = str_replace(" ", "_", $nama_file);
+            if($flama == 'box.png'){
+
+            }else{
+              unlink('./assets/upload/barang/'.$flama.'');
+            }
+  
+          }
+		}
+      
+		
+		$data=array(
+			'nama_barang'=> $barang,
+			'tanggal' => $tanggal,
+			'id_cabang' => $cabang,
+			'lokasi' => $lokasi,
+			'status' => $status,
+             'foto' => $ganti
+		);
+
+		$where = array(
+			'id_barang'=>$kode
+		);
+
+		$this->barang_model->ubah_data($where, $data, 'barang');
+		$this->session->set_flashdata('Pesan','
+		<script>
+		$(document).ready(function() {
+			swal.fire({
+				title: "Berhasil diubah!",
+				icon: "success",
+				confirmButtonColor: "#4e73df",
+			});
+		});
+		</script>
+		');
+    	redirect('barang');
+	}
+
+	public function proses_ubah_sold()
+	{
+        $config['upload_path']   = './assets/upload/barang/';
+		$config['allowed_types'] = 'png|jpg|JPG|jpeg|JPEG|gif|GIF|tif|TIF||tiff|TIFF';
+	
+		$namaFile = $_FILES['photo']['name'];
+		$error = $_FILES['photo']['error'];
+
+        $this->load->library('upload', $config);
+        
+		$kode =    $this->input->post('idbarang');
+		$barang =  $this->input->post('barang');
+		$tanggal = $this->input->post('tanggal');
+		$cabang = $this->input->post('cabang');
+		$lokasi = $this->input->post('lokasi');
+		$status = 'Sold';
 
         
         $flama = $this->input->post('fotoLama');
@@ -183,9 +256,81 @@ class Barang extends CI_Controller {
 		
 		$data=array(
 			'nama_barang'=> $barang,
-			'stok'=> $stok,
-			'id_jenis'=> $jenis,
-            'id_satuan'=> $satuan,
+			'tanggal' => $tanggal,
+			'id_cabang' => $cabang,
+			'lokasi' => $lokasi,
+			'status' => $status,
+            'foto' => $ganti
+		);
+
+		$where = array(
+			'id_barang'=>$kode
+		);
+
+		$this->barang_model->ubah_data($where, $data, 'barang');
+		$this->session->set_flashdata('Pesan','
+		<script>
+		$(document).ready(function() {
+			swal.fire({
+				title: "Berhasil diubah!",
+				icon: "success",
+				confirmButtonColor: "#4e73df",
+			});
+		});
+		</script>
+		');
+    	redirect('barang');
+	}
+
+
+	public function proses_ubah_rusak()
+	{
+        $config['upload_path']   = './assets/upload/barang/';
+		$config['allowed_types'] = 'png|jpg|JPG|jpeg|JPEG|gif|GIF|tif|TIF||tiff|TIFF';
+	
+		$namaFile = $_FILES['photo']['name'];
+		$error = $_FILES['photo']['error'];
+
+        $this->load->library('upload', $config);
+        
+		$kode =    $this->input->post('idbarang');
+		$barang =  $this->input->post('barang');
+		$tanggal = $this->input->post('tanggal');
+		$cabang = $this->input->post('cabang');
+		$lokasi = $this->input->post('lokasi');
+		$status = 'Rusak';
+
+        
+        $flama = $this->input->post('fotoLama');
+
+        if ($namaFile == '') {
+            $ganti = $flama;
+        }else{
+          if (! $this->upload->do_upload('photo')) {
+            $error = $this->upload->display_errors();
+            redirect('barang/ubah/'.$kode);
+          }
+          else{
+  
+            $data = array('photo' => $this->upload->data());
+            $nama_file= $data['photo']['file_name'];
+            $ganti = str_replace(" ", "_", $nama_file);
+            if($flama == 'box.png'){
+
+            }else{
+              unlink('./assets/upload/barang/'.$flama.'');
+            }
+  
+          }
+
+      }
+		
+		$data=array(
+			'nama_barang'=> $barang,
+			'tanggal' => $tanggal,
+			'id_cabang' => $cabang,
+			'lokasi' => $lokasi,
+			'status' => $status,
             'foto' => $ganti
 		);
 
@@ -264,13 +409,82 @@ class Barang extends CI_Controller {
 		// });
 		// </script>
 		// ');
+		$config['upload_path']   = './assets/upload/barang/';
+		$config['allowed_types'] = 'png|jpg|JPG|jpeg|JPEG|gif|GIF|tif|TIF||tiff|TIFF';
+	
+		$namaFile = $_FILES['photo']['name'];
+		$error = $_FILES['photo']['error'];
 
-		$aktif = 'aktif';
+        $this->load->library('upload', $config);
+        
+		$kode =    $this->input->post('idbarang');
+		$barang =  $this->input->post('barang');
+		$tanggal = $this->input->post('tgl');
+		$cabang = $this->input->post('cabang');
+		$lokasi = $this->input->post('lokasi');
 
+        
+        $flama = $this->input->post('fotoLama');
+
+        if ($namaFile == '') {
+            $ganti = $flama;
+        }else{
+          if (! $this->upload->do_upload('photo')) {
+            $error = $this->upload->display_errors();
+            redirect('barang/ubah/'.$kode);
+          }
+          else{
+  
+            $data = array('photo' => $this->upload->data());
+            $nama_file= $data['photo']['file_name'];
+            $ganti = str_replace(" ", "_", $nama_file);
+            if($flama == 'box.png'){
+
+            }else{
+              unlink('./assets/upload/barang/'.$flama.'');
+            }
+  
+          }
+
+      }
+	  	$Aktif = $this->barang_model->ubah_aktif();
+		$Aktif = ('Aktif');
+		
 		$data=array(
-			'status' => $aktif
+			'nama_barang'=> $barang,
+			'status' => $Aktif,
+            'foto' => $ganti,
+			'tanggal' =>$tanggal,
+			'id_cabang' => $cabang,
+			'lokasi' =>$lokasi,
 		);
-		$this->barang_model->tambah_data($data, 'barang');
+
+		$where = array(
+			'id_barang'=>$kode
+		);
+
+		// $this->barang_model->ubah_data($where, $data, 'barang');
+		// $this->session->set_flashdata('Pesan','
+		// <script>
+		// $(document).ready(function() {
+		// 	swal.fire({
+		// 		title: "Berhasil diubah!",
+		// 		icon: "success",
+		// 		confirmButtonColor: "#4e73df",
+		// 	});
+		// });
+		// </script>
+		// ');
+    	// redirect('barang');
+
+
+		// $Aktif = $this->barang_model->ubah_aktif();
+		// $Aktif = ('Aktif');
+
+		// $data=array(
+		// 	'status' => $Aktif
+		// );
+		$this->barang_model->tambah_data()()($data, 'barang');
 		
     	redirect('barang');
 		
@@ -298,5 +512,10 @@ class Barang extends CI_Controller {
         redirect('barang');
     }
     }
+
+	public function generate(){
+		$urlview = 'http://localhost/it_inventory/barang/detail/'.$id_barang;
+		$qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='.$urlview; 
+	}
 }
 

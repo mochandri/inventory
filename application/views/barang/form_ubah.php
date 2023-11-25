@@ -1,9 +1,10 @@
 <?php foreach ($data as $d): ?>
+    
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <form action="<?= base_url() ?>barang/proses_ubah" name="myForm" method="POST" enctype="multipart/form-data"
+<form action="<?= base_url() ?>barang/proses_ubah" name="myForm" method="POST" enctype="multipart/form-data"
         onsubmit="return validateForm()">
 
         <!-- Page Heading -->
@@ -15,6 +16,26 @@
                 &nbsp;
                 <h1 class="h2 mb-0 text-gray-800">Ubah Barang</h1>
             </div>
+
+            <button id="button_aktif" type="submit" class="btn btn-primary btn-md btn-icon-split">
+                
+                <span class="text text-white">Aktif</span>
+                <!-- <span class="icon text-white-50">
+                    <i class="fas fa-save"></i>
+                </span> -->
+            </button>
+            
+            
+
+    <form action="<?= base_url() ?>barang/proses_ubah_rusak" name="myForm" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+            <button type="submit" class="btn btn-primary btn-md btn-icon-split">
+                <span class="text text-white">Rusak</span>
+                <!-- <span class="icon text-white-50">
+                    <i class="fas fa-save"></i>
+                </span> -->
+            </button>
+
             <button type="submit" class="btn btn-success btn-md btn-icon-split">
                 <span class="text text-white">Simpan Perubahan</span>
                 <span class="icon text-white-50">
@@ -45,67 +66,21 @@
                             </div>
 
                             <!-- Stok -->
-                            <div class="form-group"><label>Stok Awal</label>
-                                <input class="form-control" name="stok" type="number" value="<?= $d->stok ?>">
+                            <div class="form-group"><label>Tanggal Keluar</label>
+                                <input class="form-control" name="tanggal" id="datepicker" value="<?= $d->tanggal ?>" type="text" placeholder="" autocomplete="off">
                             </div>
-
-                            <!-- Jenis -->
-                            <?php if($jmlJenis > 0): ?>
-                            <div class="form-group"><label>Jenis Barang</label>
-                                <select name="jenis" class="form-control chosen">
-                                    <?php foreach($jenis as $j): ?>
-
-                                    <?php if($d->id_jenis == $j->id_jenis): ?>
-                                    <option value="<?= $j->id_jenis ?>" selected><?= $j->nama_jenis ?></option>
-                                    <?php else: ?>
-                                    <option value="<?= $j->id_jenis ?>"><?= $j->nama_jenis ?></option>
-                                    <?php endif; ?>
-
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                            <?php else: ?>
-                            <div class="form-group"><label>Jenis Barang</label>
-                                <input type="hidden" name="jenis">
-                                <div class="d-sm-flex justify-content-between">
-                                    <span class="text-danger"><i>(Belum Ada Data Jenis!)</i></span>
-                                    <a href="<?= base_url() ?>jenis" class="btn btn-sm btn-primary btn-icon-split">
-                                        <span class="icon text-white">
-                                            <i class="fas fa-plus"></i>
-                                        </span>
-                                    </a>
+                            <div class="form-group"><label>Cabang</label>
+                                    <input name="cabang" type="hidden" value="<?= $d->id_cabang ?>">
+                                    <input class="form-control" name="preview" type="text" value="<?= $d->nama?>" autocomplete="off" readonly>
                                 </div>
-                            </div>
-                            <?php endif; ?>
 
-                             <!-- Satuan -->
-                             <?php if($jmlSatuan > 0): ?>
-                            <div class="form-group"><label>Satuan Barang</label>
-                                <select name="satuan" class="form-control chosen">
-                                    <?php foreach($satuan as $s): ?>
 
-                                    <?php if($d->id_satuan == $s->id_satuan): ?>
-                                    <option value="<?= $s->id_satuan ?>" selected><?= $s->nama_satuan ?></option>
-                                    <?php else: ?>
-                                    <option value="<?= $s->id_satuan ?>"><?= $s->nama_satuan ?></option>
-                                    <?php endif; ?>
-
-                                    <?php endforeach ?>
-                                </select>
+                            <div class="form-group"><label>Lokasi</label>
+                                <input class="form-control" name="lokasi" type="text" value="<?= $d->lokasi ?>">
                             </div>
-                            <?php else: ?>
-                            <div class="form-group"><label>Satuan Barang</label>
-                                <input type="hidden" name="satuan">
-                                <div class="d-sm-flex justify-content-between">
-                                    <span class="text-danger"><i>(Belum Ada Data Satuan!)</i></span>
-                                    <a href="<?= base_url() ?>satuan" class="btn btn-sm btn-primary btn-icon-split">
-                                        <span class="icon text-white">
-                                            <i class="fas fa-plus"></i>
-                                        </span>
-                                    </a>
-                                </div>
+                            <div class="form-group"><label>Status</label>
+                                <input id="label_status"  class="form-control" name="status" type="text" value="<?= $d->status ?>">
                             </div>
-                            <?php endif; ?>
 
                         </div>
 
@@ -152,8 +127,8 @@
             </div>
         </div>
 
-
     </form>
+</form>
 
 </div>
 <!-- /.container-fluid -->
@@ -175,6 +150,39 @@ $('.chosen').chosen({
 });
 </script>
 
+<script type="text/jsx;harmony=true">
+    void function() { "use strict";
+
+var App = React.createClass({
+  getInitialState() {
+    return {status: 'Aktif'}
+  },
+  handleChange(e) {
+    this.setState({statuus: e.target.value})
+  },
+  render() {
+    return <div>
+      <input name="status" value={this.state.status} onChange={this.handleChange}/>
+      
+    </div>
+  }
+})
+
+React.render(<App/>, document.getElementById('app'))
+
+}()</script>
+
+<script type="text/javascript">
+    var aktif = document.getElementById('button_aktif');
+    var label_status = document.getElementById('label_status');
+  
+
+    if(label_status == <?= $d->status ?> && !Aktif){
+        aktif.style.display = 'blok';
+    }else{
+        aktif.style.display='none';
+    }
+</script>
 
 
 <?php endforeach; ?>

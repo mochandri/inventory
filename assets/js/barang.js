@@ -6,6 +6,26 @@ $(document).ready(function() {
 
 });
 
+function button_aktif(){
+    var aktif = document.getElementById('button_aktif');
+    var waktu = new Date();
+    var jam = 06;
+
+    if(jam >=7 && jam <=8){
+        aktif.style.display = 'blok';
+    }else{
+        aktif.style.display='none';
+    }
+    
+    // var status = 'Aktif';
+
+    // if (status = 'Aktif'){
+    //     aktif.style.display = 'blok';
+    // }else{
+    //     aktif.style.display = 'none';
+    // }
+}
+
 
 function detail(id) {
     var base_url = $('#baseurl').val();
