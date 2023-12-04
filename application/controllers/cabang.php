@@ -24,11 +24,13 @@ class cabang extends CI_Controller {
 
 	public function proses_tambah()
 	{
-		$cabang = $this->input->post('cabang');
+		$no = $this->input->post('no');
+		$cabang = $this->input->post('nama');
 		$ket = 	$this->input->post('ket');
 		
 		$data=array(
-			'cabang'=> $cabang,
+			'no'=> $no,
+			'nama'=> $cabang,
 			'ket'=> $ket,
 		);
 

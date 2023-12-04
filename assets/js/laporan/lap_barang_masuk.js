@@ -50,12 +50,13 @@ function ambilBm() {
             "dataSrc": ""
         },
         columns: [
-            { "data": "id_barang_masuk" },
-            { "data": "tgl_masuk" },
-            { "data": "id_barang_masuk" },
-            { "data": "nama_supplier" },
+            { "data": "id_barang" },
             { "data": "nama_barang" },
-            { "data": "jumlah_masuk" },
+            { "data": "tanggal" },
+            { "data": "id_cabang" },
+            { "data": "lokasi" },
+            { "data": "status" },
+            { "data": "keterangan" },
         ],
 
         "destroy": true
@@ -90,12 +91,13 @@ function filterBm(tglawal, tglakhir) {
             "dataSrc": ""
         },
         columns: [
-            { "data": "id_barang_masuk" },
-            { "data": "tgl_masuk" },
-            { "data": "id_barang_masuk" },
-            { "data": "nama_supplier" },
+            { "data": "id_barang" },
             { "data": "nama_barang" },
-            { "data": "jumlah_masuk" },
+            { "data": "tanggal" },
+            { "data": "id_cabang" },
+            { "data": "lokasi" },
+            { "data": "status" },
+            { "data": "keterangan"},
         ],
 
         "destroy": true

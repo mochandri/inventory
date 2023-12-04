@@ -11,7 +11,6 @@ class BarangKeluar extends CI_Controller
 		$this->load->helper('download');
 		$this->load->library('pagination');
 		$this->load->helper('cookie');
-		$this->load->model('supplier_model');
 		$this->load->model('barang_model');
 		$this->load->model('barangKeluar_model');
 		$this->load->model('cabang_model');

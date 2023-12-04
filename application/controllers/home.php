@@ -8,7 +8,6 @@ class Home extends CI_Controller {
     $this->load->helper('download');
 	$this->load->helper('cookie');
 	$this->load->model('barang_model');
-	$this->load->model('supplier_model');
 	$this->load->model('user_model');
 	$this->load->model('barangMasuk_model');
 	$this->load->model('barangKeluar_model');
@@ -17,10 +16,10 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Dashboard';
-		$data['jmlbarang'] = $this->barang_model->dataJoin()->num_rows();
+		$data['jmlbarang'] = $this->barang_model->data()->num_rows();
 		$data['jmlUser'] = $this->user_model->data()->num_rows();
-		$data['bm5Terakhir'] = $this->barangMasuk_model->transaksiTerakhir()->result();
-		$data['bk5Terakhir'] = $this->barangKeluar_model->transaksiTerakhir()->result();
+		$data['b5Terakhir'] = $this->barang_model->transaksiTerakhir()->result();
+		
 
 		$data['yearnow']=date('Y', strtotime('+0 year'));
 		$data['previousyear']=date('Y', strtotime('-1 year'));

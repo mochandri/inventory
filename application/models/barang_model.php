@@ -37,12 +37,21 @@ class barang_model extends ci_model{
       return $stok->stok;
     }
 
+    public function transaksiTerakhir()
+    {
+      $this->db->select('*');
+      $this->db->from('barang as b');
+      $this->db->order_by('b.id_barang','DESC');
+      $this->db->limit(5);
+      return $query = $this->db->get();
+    }
+
     public function detail_join($where)
     
       {
         $this->db->select('*');
         $this->db->from('barang as b');
-        $this->db->join('cabang as c', 'c.id_cabang = b.id_cabang');
+        // $this->db->join('cabang as c', 'c.id_cabang = b.id_cabang');
         $this->db->where('b.id_barang', $where);
         $this->db->order_by('b.id_barang', 'DESC');
         return $query = $this->db->get();
@@ -148,14 +157,51 @@ class barang_model extends ci_model{
     return $statusAktif;
   }
 
-  public function generate(){
-    
+  function lapdata($tglAwal, $tglAkhir)
+  {
+    $this->db->select('*');
+    $this->db->from('barang as b');
+    $this->db->where('b.tgl_keluar >=', $tglAwal);
+    $this->db->where('b.tgl_keluar <=', $tglAkhir);
+    return $query = $this->db->get();
   }
 
 
+  public function get_cabang(){
+		$query = $this->db->get('cabang');
+		return $query->result_array();
+	}
+
+  public function auto_code($a){
+    $query = $this->db->query("SELECT MAX(id_barang) as max_code FROM barang WHERE id_cabang='$a'");
+		return $query->row_array();
+  }
+
+  public function get_inisial($a){
+    $query = $this->db->get_where('cabang', ['id_cabang' =>  $a]);
+    return $query->row_array();
+  }
+
+//   public function buat_id(){
+  
+// $a = $kode['max_code'];
+// $b = $in['no'];
+// $c = $in['id_cabang'];
+// $hari = date('y');
+// $urutan = (int)substr($a, 4, 4);
+// $urutan++;
+
+// $kd = $b . "/" . $hari . sprintf("%04s", $urutan);
+// var_dump($kd);
+// die;
 
 
+//   }
 
+public function plus(){
+  $id = $this->input->post('id');
+  
+}
 
 }
 

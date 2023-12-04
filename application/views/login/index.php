@@ -14,7 +14,7 @@
                             <br>
                             <div class="judul">
                                 <center>
-                                    <img width="150px" src="<?= base_url() ?>assets/icon/logo.png" alt="">
+                                    <img width="150px" src="<?= base_url() ?>assets/icon/logomhc.png" alt="">
                                 </center>
                             </div>
                                 <br>

@@ -82,36 +82,9 @@ if (!$this->session->has_userdata('login_session')) {
                 <?php if ($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang') : ?>
 
 
-                    <?php if ($title == 'Supplier') : ?>
-                        <li class="nav-item active">
-                        <?php else : ?>
-                        <li class="nav-item">
-                        <?php endif; ?>
-                        <a class="nav-link" href="<?= base_url() ?>supplier">
-                            <i class="fas fa-fw fa-users"></i>
-                            <span>Supplier</span>
-                        </a>
-                        </li>
+                   
 
-                    <?php endif; ?>
-
-                    <?php if ($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang') : ?>
-
-
-                        <?php if ($title == 'Data Barang') : ?>
-                            <li class="nav-item active">
-                            <?php else : ?>
-                            <li class="nav-item">
-                            <?php endif; ?>
-                            <a class="nav-link" href="<?= base_url() ?>data_barang">
-                                <i class="fas fa-fw fa-users"></i>
-                                <span>Data Barang</span>
-                            </a>
-                            </li>
-
-                        <?php endif; ?>
-
-                        <?php if ($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang' || $this->session->userdata('login_session')['level'] == 'manajer') : ?>
+                        
 
                             <!-- Nav Item - Pages Collapse Menu -->
                             <?php if ($title == 'Barang' or $title == 'Satuan Barang' or $title == 'Jenis Barang') : ?>
@@ -144,38 +117,7 @@ if (!$this->session->has_userdata('login_session')) {
 
                             <?php if ($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang') : ?>
 
-                                <!-- Heading -->
-                                <div class="sidebar-heading">
-                                    Transaksi
-                                </div>
-
-                                <!-- Nav Item - Pages Collapse Menu -->
-                                <?php if ($title == 'Barang Masuk' or $title == 'Barang Keluar') : ?>
-                                    <li class="nav-item active">
-                                    <?php else : ?>
-                                    <li class="nav-item">
-                                    <?php endif; ?>
-                                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages1">
-                                        <i class="fas fa-fw fa-random"></i>
-                                        <span>Transaksi</span>
-                                    </a>
-                                    <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                                        <div class="bg-white py-2 collapse-inner rounded">
-                                            <h6 class="collapse-header">Data Transaksi</h6>
-                                            <a class="collapse-item" href="<?= base_url() ?>barang_masuk"><b>Barang Masuk</b></a>
-                                            <a class="collapse-item" href="<?= base_url() ?>barang_keluar"><b>Barang Keluar</b></a>
-                                        </div>
-
-                                    </div>
-                                    </li>
-
-                                    <!-- Divider -->
-                                    <hr class="sidebar-divider d-none d-md-block">
-
-                                <?php endif; ?>
-
-                                <?php if ($this->session->userdata('login_session')['level'] == 'admin') : ?>
-
+                               
                                     <!-- Heading -->
                                     <div class="sidebar-heading">
                                         Laporan
@@ -193,8 +135,8 @@ if (!$this->session->has_userdata('login_session')) {
                                         <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                                             <div class="bg-white py-2 collapse-inner rounded">
                                                 <h6 class="collapse-header">Laporan</h6>
-                                                <a class="collapse-item" href="<?= base_url() ?>lap_barang_masuk"><b>Barang Masuk</b></a>
-                                                <a class="collapse-item" href="<?= base_url() ?>lap_barang_keluar"><b>Barang Keluar</b></a>
+                                                <a class="collapse-item" href="<?= base_url() ?>lap_barang"><b>Barang Assets</b></a>
+                                       
                                             </div>
 
                                         </div>

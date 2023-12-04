@@ -67,11 +67,11 @@
 
                             <!-- Stok -->
                             <div class="form-group"><label>Tanggal Keluar</label>
-                                <input class="form-control" name="tanggal" id="datepicker" value="<?= $d->tanggal ?>" type="text" placeholder="" autocomplete="off">
+                                <input class="form-control" name="tanggal" id="datepicker" value="<?= $d->tanggal ?>" type="text" placeholder="" autocomplete="off" readonly>
                             </div>
                             <div class="form-group"><label>Cabang</label>
                                     <input name="cabang" type="hidden" value="<?= $d->id_cabang ?>">
-                                    <input class="form-control" name="preview" type="text" value="<?= $d->nama?>" autocomplete="off" readonly>
+                                    <input class="form-control" name="preview" type="text" value="<?= $d->id_cabang?>" autocomplete="off" readonly>
                                 </div>
 
 
@@ -80,6 +80,10 @@
                             </div>
                             <div class="form-group"><label>Status</label>
                                 <input id="label_status"  class="form-control" name="status" type="text" value="<?= $d->status ?>">
+                            </div>
+
+                            <div class="form-group"><label>Keterangan</label>
+                                <input id="keterangan"  class="form-control" name="keterangan" type="text" value="<?= $d->keterangan ?>">
                             </div>
 
                         </div>

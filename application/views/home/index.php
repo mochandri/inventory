@@ -53,68 +53,12 @@
     </div>
 
 
-    <div class="row">
 
-        <!-- Area Chart -->
-        <div class="col-xl-12 col-lg-12">
-            <div class="card shadow mb-4" id="grafik">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-secondary">
-                    <h6 class="m-0 font-weight-bold border-0 text-white">Total Transaksi Barang Perbulan</h6>
-                    
-                    <div class="col-lg-2">
-                        <select name="tahun" id="tahun" class="form-control" onchange="filterTahun()">
-                            <option value="<?= $yearnow ?>"><?= $yearnow ?></option>
-                            <option value="<?= $previousyear ?>"><?= $previousyear ?></option>
-                            <option value="<?= $twoyearago ?>"><?= $twoyearago ?></option>
-                        </select>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-area" id="chart">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
 
     <div class="row">
 
         <!-- Pie Chart -->
-        <div class="col-xl-4 col-lg-4">
-            <div class="card shadow mb-4" id="grafikpie">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-secondary">
-                    <h6 class="m-0 font-weight-bold border-0 text-white">Transaksi Barang</h6>
-                    
-                    <div class="col-lg">
-                        <select name="tahunpie" id="tahunpie" class="form-control" onchange="filterTahunPie()">
-                            <option value="<?= $yearnow ?>"><?= $yearnow ?></option>
-                            <option value="<?= $previousyear ?>"><?= $previousyear ?></option>
-                            <option value="<?= $twoyearago ?>"><?= $twoyearago ?></option>
-                        </select>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-area" id="chartpie">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                        <span class="badge badge-success" id="bm"></span> Barang Masuk
-                    </span>
-                    <span class="mr-2">
-                        <span class="badge badge-danger" id="bk"></span> Barang Keluar
-                    </span>
-                </div>
-                </div>
-            </div>
-        </div>
+    
 
 
         <div class="col-xl-4 col-md-4 mb-4" id="bmterakhir">
@@ -130,15 +74,17 @@
             <div class="card-body">
                 <div class="row">
 
-                    <?php foreach($bm5Terakhir as $bm): ?>
+                    <?php foreach($b5Terakhir as $b): ?>
                         
                     <div class="col-lg-2 mb-2">
-                        <img src="<?= base_url() ?>assets/upload/barang/<?= $bm->foto ?>" alt="" width="100%" style="border-radius: 5px;">
+                        <img src="<?= base_url() ?>assets/upload/barang/<?= $b->foto ?>" alt="" width="100%" style="border-radius: 5px;">
                     </div>
                     <div class="col-lg-10">
-                        <h5 class="h5 mb-0 text-gray-800"><b><?= $bm->nama_barang ?></b></h5>
-                        <h6 class="h6 mb-0 text-gray-800"><?= $bm->tgl_masuk ?></h6>
-                        <span class="badge badge-success"> <i class="fa fa-plus"></i> <?= $bm->jumlah_masuk ?></span>
+                        <h5 class="h5 mb-0 text-gray-800"><b><?= $b->id_barang ?></b></h5>
+                        <h6 class="h6 mb-0 text-gray-800"><?= $b->nama_barang ?></h6>
+                        <h6 class="h6 mb-0 text-gray-800"><?= $b->id_cabang ?></h6>
+                        <h6 class="h6 mb-0 text-gray-800"><?= $b->lokasi ?></h6>
+                        
                     </div>
 
                     <div class="col-lg-12">
@@ -156,43 +102,7 @@
     </div>
 
 
-    <div class="col-xl-4 col-md-4 mb-4" id="bkterakhir">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-danger">
-                <h6 class="m-0 font-weight-bold border-0 text-white">5 Barang Keluar Terakhir</h6>
-                <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang'): ?>
-                    <a href="<?= base_url() ?>barang_keluar" class="btn btn-danger btn-md btn-circle">
-                        <i class="fa fa-arrow-right"></i>
-                    </a>
-                <?php endif; ?>
-            </div>
-            <div class="card-body">
-                <div class="row">
 
-                    <?php foreach($bk5Terakhir as $bk): ?>
-                        
-                    <div class="col-lg-2 mb-2">
-                        <img src="<?= base_url() ?>assets/upload/barang/<?= $bk->foto ?>" alt="" width="100%" style="border-radius: 5px;">
-                    </div>
-                    <div class="col-lg-10">
-                        <h5 class="h5 mb-0 text-gray-800"><b><?= $bk->nama_barang ?></b></h5>
-                        <h6 class="h6 mb-0 text-gray-800"><?= $bk->tgl_keluar ?></h6>
-                        <span class="badge badge-danger"> <i class="fa fa-minus"></i> <?= $bk->jumlah_keluar ?></span>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
-                    </div>
-
-                    <?php endforeach; ?>
-
-                </div>
-            
-
-            </div>
-        </div>
-    </div>
 
 
     </div>

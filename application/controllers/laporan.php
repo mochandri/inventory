@@ -9,8 +9,8 @@ class Laporan extends CI_Controller {
         $this->load->helper('download');
         $this->load->library('pagination');
         $this->load->helper('cookie');
-        $this->load->model('barangMasuk_model');
-        $this->load->model('barangKeluar_model');
+        $this->load->model('barang_model');
+     
       }
 
     public function barang_masuk_pdf()
@@ -59,6 +59,31 @@ class Laporan extends CI_Controller {
       $mpdf->WriteHTML($html);
       $tgl = date('Ymd_his');
       $namaFile = 'Barang_keluar_'.$tgl.'.pdf';
+      $mpdf->Output($namaFile, 'D');
+
+    }
+
+    public function barang_asset_pdf()
+    {
+      $tglawal = $this->input->post('tglawal');
+      $tglakhir = $this->input->post('tglakhir');
+
+      if($tglawal != '' && $tglakhir != ''){
+        $data['data'] = $this->barang_model->lapdata($tglawal, $tglakhir)->result();
+      }
+      else{
+        $data['data'] = $this->barang_model->data()->result();
+      }
+
+      $data['tglawal'] = $tglawal;
+      $data['tglakhir'] = $tglakhir;
+
+      $data['judul'] = 'Laporan Barang Keluar';
+      $mpdf = new \Mpdf\Mpdf();
+      $html = $this->load->view('laporan/barang_asset_pdf',$data,true);
+      $mpdf->WriteHTML($html);
+      $tgl = date('Ymd_his');
+      $namaFile = 'Barang_asset_'.$tgl.'.pdf';
       $mpdf->Output($namaFile, 'D');
 
     }

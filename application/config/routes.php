@@ -21,7 +21,7 @@ $route['barang_masuk'] = 'barangMasuk/index';
 $route['barang_keluar'] = 'barangKeluar/index';
 
 //laporan
-$route['lap_barang_masuk'] = 'barangMasuk/laporan';
+$route['lap_barang'] = 'barang/laporan';
 $route['lap_barang_keluar'] = 'barangKeluar/laporan';
 
 
@@ -29,3 +29,6 @@ $route['lap_barang_keluar'] = 'barangKeluar/laporan';
 $route['(:any)'] = 'gagal/index/$1';
 $route['404_override'] = 'Gagal/index';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['form'] = 'Barang/form';
+$route['form_tambah'] = 'Barang/form_tambah';

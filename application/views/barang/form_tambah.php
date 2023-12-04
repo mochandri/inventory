@@ -1,8 +1,13 @@
 <!-- Begin Page Content -->
+
+
+
+
 <div class="container-fluid">
 
-    <form action="<?= base_url() ?>barang/proses_tambah" name="myForm" method="POST" enctype="multipart/form-data"
-        onsubmit="return validateForm()">
+
+    <form action="<?= base_url() ?>barang/proses_tambah" name="myForm" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -32,8 +37,8 @@
                     <div class="card-body">
                         <div class="col-lg-12">
 
-                        <div class="form-group"><label>Kode Asset</label>
-                                <input class="form-control" name="idbk" value="<?= $kode ?>" type="text" placeholder="" autocomplete="off" readonly>
+                            <div class="form-group"><label>Kode Asset</label>
+                                <input class="form-control" name="id" value="<?= $kode ?>" type="text" placeholder="" autocomplete="off" readonly>
                             </div>
                             <!-- Nama Barang -->
                             <div class="form-group"><label>Nama Barang</label>
@@ -44,32 +49,36 @@
                                 <input class="form-control" name="tgl" id="datepicker" value="<?= $tglnow ?>" type="text" placeholder="" autocomplete="off">
                             </div>
 
-                             <!-- opsi cabang -->
-                             <?php if($jmlCabang > 0): ?>
-                            <div class="form-group"><label>Cabang</label>
-                                <select name="cabang" class="form-control chosen" onchange="ambilKodeCabang()">
-                                    <option value="">--Pilih--</option>
-                                    <?php foreach($cabang as $c): ?>
-                                    <option value="<?= $c->id_cabang ?>"><?= $c->nama ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                            <?php else: ?>
-                            <div class="form-group"><label>Cabang</label>
-                                <input type="hidden" name="cabang">
-                                <div class="d-sm-flex justify-content-between">
-                                    <span class="text-danger"><i>(Belum Ada Data Cabang!)</i></span>
-                                    <a href="<?= base_url() ?>cabang" class="btn btn-sm btn-primary btn-icon-split">
-                                        <span class="icon text-white">
-                                            <i class="fas fa-plus"></i>
-                                        </span>
-                                    </a>
+                            <!-- opsi cabang -->
+                            <?php if ($jmlCabang > 0) : ?>
+                                <div class="form-group"><label>Cabang</label>
+                                    <select name="cabang" class="form-control chosen" onchange="ambilKodeCabang()">
+                                        <option value="">--Pilih--</option>
+                                        <?php foreach ($cabang as $c) : ?>
+                                            <option value="<?= $c->id_cabang ?>"><?= $c->nama ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
-                            </div>
+                            <?php else : ?>
+                                <div class="form-group"><label>Cabang</label>
+                                    <input type="hidden" name="cabang">
+                                    <div class="d-sm-flex justify-content-between">
+                                        <span class="text-danger"><i>(Belum Ada Data Cabang!)</i></span>
+                                        <a href="<?= base_url() ?>cabang" class="btn btn-sm btn-primary btn-icon-split">
+                                            <span class="icon text-white">
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
                             <?php endif; ?>
 
                             <div class="form-group"><label>Lokasi</label>
                                 <input class="form-control" name="lokasi" type="text" placeholder="">
+                            </div>
+
+                            <div class="form-group"><label>Keterangan</label>
+                                <input class="form-control" name="keterangan" type="text" placeholder="">
                             </div>
 
 
@@ -97,16 +106,14 @@
                         <br>
                         <center>
                             <div id="img">
-                                <img src="<?= base_url() ?>assets/upload/barang/box.png" id="outputImg" width="200"
-                                    maxheight="300">
+                                <img src="<?= base_url() ?>assets/upload/barang/box.png" id="outputImg" width="200" maxheight="300">
                             </div>
                         </center>
                         <br>
                         <!-- foto -->
                         <div class="form-group">
                             <div class="custom-file">
-                                <input class="custom-file-input" type="file" id="GetFile" name="photo"
-                                    onchange="VerifyFileNameAndFileSize()" accept=".png,.gif,.jpeg,.tiff,.jpg">
+                                <input class="custom-file-input" type="file" id="GetFile" name="photo" onchange="VerifyFileNameAndFileSize()" accept=".png,.gif,.jpeg,.tiff,.jpg">
                                 <label class="custom-file-label" for="customFile">Pilih File</label>
                             </div>
                         </div>
@@ -133,31 +140,33 @@
 <script src="<?= base_url(); ?>assets/plugin/chosen/chosen.jquery.min.js"></script>
 
 <script>
-$('.chosen').chosen({
-    width: '100%',
+    $('.chosen').chosen({
+        width: '100%',
 
-});
+    });
 </script>
 
-<?php if($this->session->flashdata('Pesan')): ?>
 
-<?php else: ?>
-<script>
-$(document).ready(function() {
 
-    let timerInterval
-    Swal.fire({
-        title: 'Memuat...',
-        timer: 1000,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
+<?php if ($this->session->flashdata('Pesan')) : ?>
 
-    })
-});
-</script>
+<?php else : ?>
+    <script>
+        $(document).ready(function() {
+
+            let timerInterval
+            Swal.fire({
+                title: 'Memuat...',
+                timer: 1000,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+
+            })
+        });
+    </script>
 <?php endif; ?>
